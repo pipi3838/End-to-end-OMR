@@ -140,7 +140,8 @@ for epoch in range(nEpochs):
 
 
             # writer.add_text('target', target_list[0])
-            writer.add_text('Result', 'Decode: {} \n Target: {}'.format('  '.join(decoded[0]), target_list[0]), epoch)
+            pred = ' '.join(list(map(str, decoded[0])))
+            writer.add_text('Result', 'Decode: {} \n Target: {}'.format(pred, target_list[0]), epoch)
                         # print('targets:',target_list[i])
                         # print('decoded:',decoded[i])
                         # print('un decoded:',max_probs[i].cpu().numpy())
@@ -153,7 +154,7 @@ for epoch in range(nEpochs):
         print('Save model!')
         torch.save(model.state_dict(), os.path.join(model_save_path ,'model_best.pth'))
       
-    print ('Loss value at validation ' + str(epoch) + ':' + str(valid_loss))
+    print ('[Validate] loss: ' + str(epoch) + ':' + str(valid_loss))
     sample_error_rate = 1. * val_edit / len(valset)
     symbol_error_rate = 100. * val_edit / val_len
     print ('[Epoch ' + str(epoch) + '] ' + str(sample_error_rate) + ' (' + str(symbol_error_rate) + ' SER) ' + ' from ' + str(len(valset)) + ' samples.')         
