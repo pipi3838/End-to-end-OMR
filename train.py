@@ -129,8 +129,8 @@ for epoch in range(nEpochs):
                 decoded, max_probs = decoder.decode(output, true_len) 
                 for i in range(targets.shape[0]):
                     target = targets[i][:true_len[i]].cpu().numpy().tolist()
-                    target = ' '.join(list(map(str, target)))
                     distance = levenshtein(target,decoded[i])
+                    target = ' '.join(list(map(str, target)))
                     # target = decoder.convert_np_to_string(target)
                     val_edit += distance
                     val_len += true_len[i].cpu().item()
